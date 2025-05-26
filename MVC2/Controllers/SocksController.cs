@@ -7,18 +7,18 @@ namespace MVC.Controllers {
     [Route("[controller]")]
     public class SocksController : Controller {
         public IActionResult Index() {
-            return View(SockDataset.Socks);
+            return View(SockDataset.GetSocks());
         }
         [Route("[action]/{id}")]
         public IActionResult Details(int id) {
-            var data = SockDataset.Socks;
+            var data = SockDataset.GetSocks();
             var sock = data.FirstOrDefault(sock => sock.Id == id);
             return View(sock);
         }
         //[Route("[action]/min/{minPrice:int}/max/{maxPrice:int}")]
         [Route("[action]")]
         public IActionResult SearchByPrice(int minPrice, int maxPrice) {
-            var data = SockDataset.Socks;
+            var data = SockDataset.GetSocks();
             var socks = data.Where(sock => sock.Price >= minPrice && sock.Price <= maxPrice);
             //return View(socks);
             return View("Index", socks); //technicky muzu zrecykovat i jine view, akorat to bude s filtrem

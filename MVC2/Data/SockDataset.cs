@@ -8,7 +8,7 @@ namespace MVC.Data {
             return Enumerable.Range(1, 10).Select(index => new Socks() {
                 Id = index,
                 Brand = brands[Random.Shared.Next(brands.Length)],
-                Size = (Size)Random.Shared.Next(4),
+                Size = (Size)Random.Shared.Next(3),
                 Price = Random.Shared.Next(50, 500),
                 OnStock = Random.Shared.Next(0, 20)
             }).ToArray();

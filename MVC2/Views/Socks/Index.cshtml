@@ -7,7 +7,9 @@
 <h1>Ponožky</h1>
 @foreach (var sock in Model)
 {
-    <p>@sock.Brand - velikost @sock.Size - cena @sock.Price, na sklade @sock.OnStock <a asp-controller="Socks" asp-action="Details" asp-route-id="@sock.Id">Detail</a></p>
-    
+    <p>@sock.Brand - velikost @sock.Size - cena @sock.Price, na sklade @sock.OnStock 
+        @* <a asp-controller="Socks" asp-action="Details" asp-route-id="@sock.Id">Detail</a> *@
+        <a href="/socks/details/@sock.Id">Detail</a> @* to by asi taky slo *@
+        </p>
 }
      

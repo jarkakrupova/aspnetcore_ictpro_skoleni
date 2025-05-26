@@ -14,6 +14,7 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>(); //default rovnou prida GUI, reset hesla ap., vsechno ma v sobe
 builder.Services.AddControllersWithViews();
+builder.Services.AddControllers(); //pridano pro podporu API controlleru
 
 var app = builder.Build();
 
@@ -38,7 +39,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Socks}/{action=Index}/{id?}"); //proto kdyz nezadame nic, skoci to na home/index
+    pattern: "{controller=Home}/{action=Index}/{id?}"); //proto kdyz nezadame nic, skoci to na home/index
 app.MapRazorPages(); //kvuli defaultnim views pro Identity, ty jsou .cshtml
 
 app.Run();

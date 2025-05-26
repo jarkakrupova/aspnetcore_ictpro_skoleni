@@ -1,0 +1,15 @@
+﻿    @model IEnumerable<Socks>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@foreach (var sock in @Model)
+{
+<h1>Detail ponožky</h1>
+<p>značka: @sock.Brand</p>
+<p>velikost: @sock.Size</p>
+<p>Cena: @sock.Price Kč</p>
+<p>Zasoby: @sock.OnStock ks</p>
+<p>Id: @sock.Id</p>
+}

@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Logging.Abstractions;
 
 //pro malá API, kde není nutných víc controllerù
+//umí to .http pro testování API 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -40,7 +41,7 @@ app.MapGet("/weatherforecast", () => {
         .ToArray();
     return forecast;
 })
-.WithName("GetWeatherForecast"); //tohle pojmenovani je nepovinne
+.WithName("GetWeatherForecast"); //tohle pojmenovani je nepovinne, Swagger vezme metodu WithDescription a textem endpoint popíše
 
 app.MapGet("/", () => $"API bìží, nyní je {DateTime.Now.ToLongDateString()}"); 
 

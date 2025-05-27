@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MVC.Data;
+using MVC.Middleware;
 using MVC.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -32,6 +33,7 @@ else {
     app.UseHsts();
 }
 
+app.UseRequestLog(); //muj vlastni novy middleware
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 

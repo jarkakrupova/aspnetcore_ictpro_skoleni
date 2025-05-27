@@ -11,10 +11,12 @@ namespace MVC.Controllers {
         }
 
         public IActionResult Index() {
+            _logger.Log(LogLevel.Information, "volam metodu Index na HomeControlleru \n"); //loguje do Outputu
             return View();
         }
 
         public IActionResult Privacy() {
+            _logger.Log(LogLevel.Information, "volam metodu Privacy na HomeControlleru \n");
             return View();
         }
 

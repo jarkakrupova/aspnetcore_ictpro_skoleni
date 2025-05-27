@@ -8,5 +8,6 @@ namespace MVC.Data {
             : base(options) {
         }
         public DbSet<NewSocks> NewSocks { get; set; }
+        public DbSet<Request> RequestLog { get; set; }
     }
 }

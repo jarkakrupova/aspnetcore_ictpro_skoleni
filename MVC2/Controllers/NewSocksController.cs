@@ -2,26 +2,37 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MVC.Data;
 using MVC.Models;
+using MVC.Services;
 
 namespace MVC.Controllers
 {
+
     public class NewSocksController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly SimpleFileLogger _simpleFileLogger;
 
-        public NewSocksController(ApplicationDbContext context)
+        public NewSocksController(ApplicationDbContext context, SimpleFileLogger simpleFileLogger)
         {
             _context = context;
+            _simpleFileLogger = simpleFileLogger;
         }
 
         // GET: NewSocks
         public async Task<IActionResult> Index()
         {
+            string login = "neprihlasen";
+            if (User.Identity.IsAuthenticated) {
+                login = User.Identity.Name;
+            }
+            ViewData["login"] = login;
+            _simpleFileLogger.Log("byl volan Index z NewSocksControlleru");
             return View(await _context.NewSocks.ToListAsync());
         }
 
@@ -39,10 +50,11 @@ namespace MVC.Controllers
             {
                 return NotFound();
             }
+            _simpleFileLogger.Log("byly volany Details z NewSocksControlleru");
 
             return View(newSocks);
         }
-
+        [Authorize]
         // GET: NewSocks/Create
         public IActionResult Create()
         {
@@ -54,6 +66,7 @@ namespace MVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Create([Bind("Id,Brand,Size,Price,OnStock")] NewSocks newSocks)
         {
             if (ModelState.IsValid)
@@ -66,6 +79,7 @@ namespace MVC.Controllers
         }
 
         // GET: NewSocks/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -86,6 +100,7 @@ namespace MVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Brand,Size,Price,OnStock")] NewSocks newSocks)
         {
             if (id != newSocks.Id)
@@ -117,6 +132,7 @@ namespace MVC.Controllers
         }
 
         // GET: NewSocks/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -137,6 +153,7 @@ namespace MVC.Controllers
         // POST: NewSocks/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var newSocks = await _context.NewSocks.FindAsync(id);

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MVC.Data;
+using MVC.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>(); //default rovnou prida GUI, reset hesla ap., vsechno ma v sobe
 builder.Services.AddControllersWithViews();
 builder.Services.AddControllers(); //pridano pro podporu API controlleru
+builder.Services.AddSingleton<SimpleFileLogger>();
 
 var app = builder.Build();
 

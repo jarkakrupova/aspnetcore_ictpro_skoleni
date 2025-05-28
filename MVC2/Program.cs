@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using MVC.Data;
 using MVC.Middleware;
 using MVC.Services;
@@ -18,6 +19,15 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 builder.Services.AddControllersWithViews();
 builder.Services.AddControllers(); //pridano pro podporu API controlleru
 builder.Services.AddSingleton<SimpleFileLogger>();
+
+//directory browsing
+//dokumentace> https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.builder.fileserveroptions.enabledirectorybrowsing?view=aspnetcore-9.0#microsoft-aspnetcore-builder-fileserveroptions-enabledirectorybrowsing
+//builder.Services.AddDirectoryBrowser();
+//var fileProvider = new PhysicalFileProvider(builder.Environment.WebRootPath);
+//app.UseDirectoryBrowser(new DirectoryBrowserOptions {
+//    FileProvider = fileProvider,
+//    RequestPath = "/wwwroot"
+//});
 
 var app = builder.Build();
 
